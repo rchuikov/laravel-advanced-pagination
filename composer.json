@@ -1,0 +1,31 @@
+{
+    "name": "rchuikov/laravel-advanced-pagination",
+    "description": "Configurable pagination for Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.5",
+        "illuminate/pagination": "^13.0",
+        "illuminate/support": "^13.0",
+        "illuminate/view": "^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RChuikov\\LaravelAdvancedPagination\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RChuikov\\LaravelAdvancedPagination\\PaginationServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^12.5"
+    },
+    "scripts": {
+        "test": "phpunit --bootstrap vendor/autoload.php tests"
+    }
+}
