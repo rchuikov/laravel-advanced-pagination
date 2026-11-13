@@ -53,6 +53,7 @@ final class PaginationRenderer
         }
 
         $parts = [
+            '{per_page_text}' => __(config('advanced-pagination.per_page_text')),
             '{count}' => $this->count($paginator, $templates),
             '{first}' => $this->navigation($paginator, 'first', 1, $templates),
             '{prev}' => $this->navigation(

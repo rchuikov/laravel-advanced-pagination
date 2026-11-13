@@ -58,14 +58,29 @@ final class PaginationServiceProvider extends ServiceProvider
             string $pageName = 'page',
             ?int $page = null,
         ): LengthAwarePaginator {
-            /** @var Builder $this */
-            $perPage ??= (int) request()->query(
-                'per_page',
-                config('advanced-pagination.per_page'),
-            );
+            $request = request();
+            $pageSizes = config('advanced-pagination.page_sizes');
+            $defaultPerPage = (int) config('advanced-pagination.per_page');
+            $sessionKey = 'advanced-pagination.per_page';
 
-            if (! in_array($perPage, config('advanced-pagination.page_sizes'), true)) {
-                $perPage = (int) config('advanced-pagination.per_page');
+            if ($perPage === null) {
+                $requestedPerPage = $request->query('per_page');
+
+                if ($requestedPerPage !== null) {
+                    $perPage = (int) $requestedPerPage;
+
+                    if (in_array($perPage, $pageSizes, true) && $request->hasSession()) {
+                        $request->session()->put($sessionKey, $perPage);
+                    }
+                } elseif ($request->hasSession()) {
+                    $perPage = (int) $request->session()->get($sessionKey, $defaultPerPage);
+                }
+            }
+
+            $perPage ??= $defaultPerPage;
+
+            if (! in_array($perPage, $pageSizes, true)) {
+                $perPage = $defaultPerPage;
             }
 
             return $this->paginate(

@@ -5,12 +5,13 @@ return [
     'page_sizes' => [10, 20, 50, 100],
     'styles' => true,
     'summary_text' => 'Records :from–:to of :total',
+    'per_page_text' => 'Per page',
 
     'templates' => [
         'main' => <<<'HTML'
             <div class="r-pagination">
                 <div class="r-pagination-size">
-                    <span class="r-pagination-size-label">Per page</span>
+                    <span class="r-pagination-size-label">{per_page_text}</span>
                     {count}
                 </div>
                 {pager}
