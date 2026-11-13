@@ -83,6 +83,26 @@ final class PaginationTest extends TestCase
             ->assertJsonPath('size', 20);
     }
 
+    public function test_controls_are_hidden_only_below_the_minimum_page_size(): void
+    {
+        config(['advanced-pagination.page_sizes' => [20, 5, 10]]);
+
+        $belowMinimum = new LengthAwarePaginator(range(1, 4), 4, 20);
+        $atMinimum = new LengthAwarePaginator(range(1, 5), 5, 20);
+
+        $html = Blade::render('<x-advanced-pagination :paginator="$belowMinimum" />', compact('belowMinimum'));
+        self::assertStringNotContainsString('<select', $html);
+
+        $summary = Blade::render(
+            '<x-advanced-pagination :paginator="$belowMinimum" section="summary" />',
+            compact('belowMinimum'),
+        );
+        self::assertStringContainsString('Records 1–4 of 4', $summary);
+
+        $html = Blade::render('<x-advanced-pagination :paginator="$atMinimum" />', compact('atMinimum'));
+        self::assertStringContainsString('<select name="per_page"', $html);
+    }
+
     #[DataProvider('assets')]
     public function test_bundled_assets_are_served_with_versioned_urls(string $file, string $contentType): void
     {

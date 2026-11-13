@@ -48,6 +48,10 @@ final class PaginationRenderer
         LengthAwarePaginator $paginator,
         array $templates,
     ): string {
+        if ($paginator->total() < min(config('advanced-pagination.page_sizes'))) {
+            return '';
+        }
+
         $parts = [
             '{count}' => $this->count($paginator, $templates),
             '{first}' => $this->navigation($paginator, 'first', 1, $templates),
