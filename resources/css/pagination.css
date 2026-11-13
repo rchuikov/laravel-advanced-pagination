@@ -86,4 +86,9 @@
         flex-wrap: wrap;
         width: 100%;
     }
+
+    .r-pagination-navigation .r-pagination-page,
+    .r-pagination-navigation .r-pagination-gap {
+        display: none;
+    }
 }

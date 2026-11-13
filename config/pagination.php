@@ -39,9 +39,9 @@ return [
         'prev' => '<a href="{url}" aria-label="Previous page">‹</a>',
         'prev_disabled' => '<span aria-disabled="true">‹</span>',
 
-        'page' => '<a href="{url}">{page}</a>',
+        'page' => '<a class="r-pagination-page" href="{url}">{page}</a>',
         'page_current' => '<span aria-current="page">{page}</span>',
-        'gap' => '<span aria-hidden="true">…</span>',
+        'gap' => '<span class="r-pagination-gap" aria-hidden="true">…</span>',
 
         'next' => '<a href="{url}" aria-label="Next page">›</a>',
         'next_disabled' => '<span aria-disabled="true">›</span>',
